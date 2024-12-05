@@ -1,39 +1,10 @@
 import React, { useState } from "react";
 import "./LogInSignUp.css";
 import {Navigate} from "react-router-dom";
+import {checkCookie} from "../util/cookieUtil";
+import {registerUser,Login} from"../util/fetchUtil"
 
 const LogInSignUp = () => {
-  function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(";");
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === " ") {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
-  function checkCookie(cName) {
-    let token = getCookie(cName);
-    if (token !== "") {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -45,28 +16,13 @@ const LogInSignUp = () => {
     setPassword(event.target.value);
   };
 
-  async function registerUser() {
-    const response = await fetch("http//:localhost:3030/auth/register", {
-      method: "POST", // HTTP method
-      body: JSON.stringify({ username: username, password: password }),
-    });
-    return response.json();
-  }
+  
 
   const SignUp = () => {
     registerUser();
     Login();
   };
-  const Login = async () => {
-    const response = await fetch("http//:localhost:3030/auth/register", {
-      method: "POST", // HTTP method
-      body: JSON.stringify({ username: username, password: password }),
-    });
-    if (response.ok && response.json() != null) {
-      setCookie("refresh-token", response.json().refreshToken, 5);
-      setCookie("access-token", response.json().accessToken, 5);
-    }
-  };
+  
   if(checkCookie("access-token")){
     return <Navigate to='main' replace/>
   }
