@@ -16,7 +16,7 @@ const Pile = (props) => {
         <div className="separation"></div>
         <div className="pile-description">{props.description}</div>
     </div>
-    <OpenedPile visible = "visible"></OpenedPile>
+    <OpenedPile visible = "visible" title = "Drugi Svetski Rat" description = "Najgora Lekcija"></OpenedPile>
     </>
   )
 }
