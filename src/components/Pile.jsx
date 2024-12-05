@@ -3,7 +3,7 @@ import "./Pile.css"
 import OpenedPile from './OpenedPile'
 
 const Pile = (props) => {
-
+const cards = [];
     const OpenPile = () =>{
         //OVDE TREBA POVUCI KARTICE ZA OVAJ SPIL I OTVORITI EKRAN ZA NJEGA
         
